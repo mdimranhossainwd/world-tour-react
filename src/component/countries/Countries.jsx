@@ -8,12 +8,39 @@ const Countries = () => {
       .then((res) => res.json())
       .then((data) => setCountries(data));
   }, []);
+
+  const [visit, setVisit] = useState([]);
+
+  const visitHandle = (flag) => {
+    const newFlag = [...visit, flag];
+    setVisit(newFlag);
+  };
+
   return (
     <div>
       <span>Countries : {countries.length} </span>
-      {countries.map((country) => (
-        <Country key={country.polularation} country={country}></Country>
-      ))}
+
+      <div>
+        {visit.map((item) => {
+          <img src={item} alt="" />;
+        })}
+      </div>
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: "10px",
+        }}
+      >
+        {countries.map((country) => (
+          <Country
+            key={country.polularation}
+            country={country}
+            visitHandle={visitHandle}
+          ></Country>
+        ))}
+      </div>
     </div>
   );
 };
